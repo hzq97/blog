@@ -1,0 +1,96 @@
+<%-include('./share/header')%>
+    <!-- 路径 -->
+    <div class="b-breadcrumbs f-breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="/?type=all"><i class="fa fa-home"></i>首页</a></li>
+                <% if(typeID!='all'){ %>
+                    <li><i class="fa fa-angle-right"></i>
+                        <a href="/?type=<%= typeID%>">
+                            <%= typeID %>
+                        </a>
+                    </li>
+                    <%}%>
+            </ul>
+        </div>
+    </div>
+    <!-- list -->
+    <div class="l-inner-page-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-md-push-3">
+                    <%if(msg!=''){%>
+                        <h1 class="text-center"><%=msg%></h1>
+                        <%}else{%>
+                            <%for(var i=0;i<8;i++){%>
+                                <div class="b-blog-listing__block">
+                                    <div class="b-infoblock-with-icon b-blog-listing__infoblock">
+                                        <a href="/<%=article[i]._id%>.html" class="b-infoblock-with-icon__icon f-infoblock-with-icon__icon fade-in-animate hidden-xs">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                        <div class="b-infoblock-with-icon__info f-infoblock-with-icon__info">
+                                            <a href="/<%=article[i]._id%>.html" class="f-infoblock-with-icon__info_title b-infoblock-with-icon__info_title f-primary-l b-title-b-hr f-title-b-hr">
+                                                <%-article[i].title%>
+                                            </a>
+                                            <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text f-primary-b b-blog-listing__pretitle">
+                                                <a href="/?type=<%= article[i].type_id%>" class="f-more f-tag b-tag">
+                                                    <%=article[i].type_id%>
+                                                </a>
+                                                <%=article[i].addtime%>
+                                                    <a href="#" class="f-more b-blog-listing__additional-text f-primary"><i class="fa fa-comment"></i><%=article[i].num%> Comments</a>
+                                            </div>
+                                            <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text c-primary b-blog-listing__text">
+                                                <%=article[i].content.replace(/<\/*?.*?>/g,'').substr(0,150)+'...'%>
+                                            </div>
+                                            <div class="f-infoblock-with-icon__info_text b-infoblock-with-icon__info_text">
+                                                <a href="/<%=article[i]._id%>.html" class="f-more f-primary-b">Read more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%}%>
+                                    <div class="b-pagination f-pagination">
+                                        <ul>
+                                            <li><a href="/?page=1&&type=<%=typeID%>&&keywords=<%=keywords%>">First</a></li>
+                                            <%if(page ==1){%>
+                                                <li><a class="prev" href="javascript:;"><i class="fa fa-angle-left"></i></a></li>
+                                                <%}else{%>
+                                                    <li><a class="prev" href="/?page=<%=(page-1)%>&&type=<%=typeID%>&&keywords=<%=keywords%>"><i class="fa fa-angle-left"></i></a></li>
+                                                    <%}%>
+                                                        <%for(var i=1;i<num;i++){%>
+                                                            <% if(page==i){%>
+                                                                <li class="is-active-pagination">
+                                                                    <a href="/?page=<%=i%>&&type=<%=typeID%>&&keywords=<%=keywords%>">
+                                                                        <%=i%>
+                                                                    </a>
+                                                                </li>
+                                                                <%}else{%>
+                                                                    <li>
+                                                                        <a href="/?page=<%=i%>&&type=<%=typeID%>&&keywords=<%=keywords%>">
+                                                                            <%=i%>
+                                                                        </a>
+                                                                    </li>
+                                                                    <%}%>
+                                                                        <%}%>
+                                                                            <%if(page ==num-1){%>
+                                                                                <li><a class="next" href="javascript:;"><i class="fa fa-angle-right"></i></a></li>
+                                                                                <%}else{%>
+                                                                                    <li><a class="next" href="/?page=<%=(page+1)%>&&type=<%=typeID%>&&keywords=<%=keywords%>"><i class="fa fa-angle-right"></i></a></li>
+                                                                                    <%}%>
+                                                                                        <li><a href="/?page=<%=(num-1)%>&&type=<%=typeID%>&&keywords=<%=keywords%>">Last</a></li>
+                                        </ul>
+                                    </div>
+                                    <%}%>
+                </div>
+                <div class="visible-xs-block visible-sm-block b-hr"></div>
+                <%- include('./share/footer') %>
+                    <script>
+                    $(function() {
+                        $('.f-btn-search').click(function() {
+                            var keywords = $(".form-control").val()
+                            console.log(typeof keywords)
+                            location.href = "/?type=<%=typeID%>&&keywords=" + keywords;
+                        })
+
+                    })
+                    </script>

@@ -1,0 +1,17 @@
+{
+  "name": "nodejsapp",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "editor.md": "^1.5.0"
+  }
+}

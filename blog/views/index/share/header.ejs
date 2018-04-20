@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Bootstrap css -->
+    <link type="text/css" rel='stylesheet' href="/index/css/bootstrap.min.css">
+    <!-- End Bootstrap css -->
+    <!-- Fancybox -->
+    <link type="text/css" rel='stylesheet' href="/index/js/fancybox/jquery.fancybox.css">
+    <!-- End Fancybox -->
+    <link type="text/css" rel='stylesheet' href="fonts/fonts.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link type="text/css" data-themecolor="default" rel='stylesheet' href="/index/css/main-default.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <style>
+    .f-categories-filter_name {
+        width: 230px;
+        display: inline-block;
+        line-height: 1.5;
+    }
+
+    .b-blog-short-post__item_img img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .b-blog-listing__infoblock {
+        padding-top: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="mask-l" style="background-color: #fff; width: 100%; height: 100%; position: fixed; top: 0; left:0; z-index: 9999999;"></div>
+    <!--removed by integration-->
+    <header>
+        <div class="container b-header__box b-relative">
+            <div class="b-header-r b-right b-header-r--icon">
+                <div class="b-top-nav-show-slide f-top-nav-show-slide b-right j-top-nav-show-slide"><i class="fa fa-align-justify"></i></div>
+                <nav class="b-top-nav f-top-nav b-right j-top-nav">
+                    <ul class="b-top-nav__1level_wrap">
+                        <% if(typeID=='all'){%>
+                            <li class="b-top-nav__1level f-top-nav__1level is-active-top-nav__1level f-primary-b">
+                                </i><a href="/?type=all">首页 </a>
+                                <%}else{%>
+                                    <li class="b-top-nav__1level f-top-nav__1level f-primary-b">
+                                        </i><a href="/?type=all">首页 </a>
+                                        <%}%>
+                                            <% for(var i = 0;i<type.length;i++){ %>
+                                                <% if(i>6){%>
+                                                    <li class="b-top-nav__1level f-top-nav__1level f-primary-b">
+                                                        </i><a>... </a>
+                                                        <% break %>
+                                                            <%}%>
+                                                                <%if(typeID == type[i].typename){%>
+                                                                    <li class="b-top-nav__1level is-active-top-nav__1level f-top-nav__1level f-primary-b"><a href="/?type=<%= type[i].typename%>"></i><%= type[i].typename%> <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a>
+                                                                        <%continue%>
+                                                                            <%}%>
+                                                                                <li class="b-top-nav__1level f-top-nav__1level f-primary-b"><a href="/?type=<%= type[i].typename%>"></i><%= type[i].typename%> <span class="b-ico-dropdown"><i class="fa fa-arrow-circle-down"></i></span></a>
+                                                                                    <%}%>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="j-menu-container"></div>
+    <div class="b-inner-page-header f-inner-page-header b-bg-header-inner-page">
+        <div class="b-inner-page-header__content">
+            <div class="container">
+                <h1 class="f-primary-l c-default">个人博客</h1>
+            </div>
+        </div>
+    </div>
+    <div class="l-main-container">

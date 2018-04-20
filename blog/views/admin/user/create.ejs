@@ -1,0 +1,126 @@
+<%- include('../share/header') %>
+
+    <body>
+        <div id="wrapper">
+            <%- include('../share/menu') %>
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">添加用户</h1>
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <% if(msg){ %>
+                                <div class="alert alert-danger" role="alert">
+                                    <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                                    <h4><%= msg %></h4>
+                                </div>
+                                <% } %>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            用户添加
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <form role="form" enctype="multipart/form-data" action="/user" method="post" class="form">
+                                                        <div class="form-group">
+                                                            <label>用户名</label>
+                                                            <input class="form-control username" type="text" placeholder="请输入用户名" name="username">
+                                                        </div>
+                                                        <p style="color:red" class="u-msg"></p>
+                                                        <div class="form-group">
+                                                            <label>昵称</label>
+                                                            <input class="form-control nickname" type="text" name="nickname">
+                                                        </div>
+                                                        <p style="color:red" class="n-msg"></p>
+                                                        <div class="form-group">
+                                                            <label>邮箱</label>
+                                                            <input class="form-control email" type="email" name="email">
+                                                        </div>
+                                                        <p style="color:red" class="e-msg"></p>
+                                                        <div class="form-group">
+                                                            <label>密码</label>
+                                                            <input class="form-control password" type="password" name="password">
+                                                        </div>
+                                                        <p style="color:red" class="p-msg"></p>
+                                                        <div class="form-group">
+                                                            <label>确认密码</label>
+                                                            <input class="form-control repassword" type="password" name="repassword">
+                                                        </div>
+                                                        <p style="color:red" class="rp-msg"></p>
+                                                        <div class="form-group">
+                                                            <label>头像</label>
+                                                            <input type="file" name="img" class="img">
+                                                        </div>
+                                                        <p style="color:red" class="pic-msg"></p>
+                                                        <button type="submit" class="btn btn-default">注册</button>
+                                                        <button type="reset" class="btn btn-default">重置</button>
+                                                    </form>
+                                                </div>
+                                                <!-- /.col-lg-6 (nested) -->
+                                            </div>
+                                            <!-- /.row (nested) -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                        </div>
+                        <!-- /.col-lg-12 -->
+                    </div>
+                </div>
+                <!-- /#page-wrapper -->
+        </div>
+        <!-- /#wrapper -->
+    </body>
+    <%- include('../share/footer') %>
+        <script>
+        $.ajaxSetup({
+            async: false
+        });
+        $(function() {
+
+
+            $('.email').blur(function() {
+                $.get('/userMsg', { email: $('.email').val() }, function(doc) {
+                    if (doc != '') {
+                        $('.e-msg').html(doc);
+                    }
+                })
+            })
+
+            $('.form').submit(function(e) {
+                if ($('.username').val() == '') {
+                    $('.u-msg').html('用户名不能为空');
+                    e.preventDefault();
+                } else if ($('.nickname').val() == '') {
+                    $('.n-msg').html('昵称不能为空');
+                    e.preventDefault();
+                } else if ($('.email').val() == '') {
+                    $('.e-msg').html('邮箱不能为空');
+                    e.preventDefault();
+                } else if ($('.password').val() == '') {
+                    $('.p-msg').html('密码不能为空');
+                    e.preventDefault();
+                } else if ($('.repassword').val() == '') {
+                    $('.rp-msg').html('确认密码不能为空');
+                    e.preventDefault();
+                } else if ($('.repassword').val() != $('.password').val()) {
+                    $('.rp-msg').html('两次密码不一致');
+                    e.preventDefault();
+                } else if ($('.pic').val() == '') {
+                    $('.pic-msg').html('请上传头像');
+                    e.preventDefault();
+                } else {
+                    $.get('/userMsg', { email: $('.email').val() }, function(doc) {
+                        if (doc != '') {
+                            $('.e-msg').html(doc);
+                            e.preventDefault();
+                        }
+                    })
+                }
+            })
+        })
+        </script>

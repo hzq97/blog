@@ -1,0 +1,49 @@
+<style>
+.con p {
+    font-size: 18px;
+}
+
+.row .bdshare-button-style1-24 {
+    background: #fff;
+    border: none;
+}
+
+.row .bdshare-button-style1-24:hover {
+    background: #fff;
+    border: none;
+}
+</style>
+<%-include('./share/header')%>
+    <!-- 路径 -->
+    <div class="b-breadcrumbs f-breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="/?type=all"><i class="fa fa-home"></i>首页</a></li>
+                <li><i class="fa fa-angle-right"></i>
+                    <a href="/?type=<%=content.type_id%>">
+                        <%=content.type_id%>
+                    </a>
+                </li>
+                <li><i class="fa fa-angle-right"></i><span><%=content.title%></span></li>
+            </ul>
+        </div>
+    </div>
+    <!-- list -->
+    <div class="l-inner-page-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-md-push-3">
+                    <h1><%=content.title%> </h1>
+                    <span><%=content.num%>人浏览</span> <span><%=content.addtime%></span>
+                    <div class="con" style="margin-top:20px">
+                        <%-content.content%>
+                    </div>
+                    分享到：
+                    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                    <script>
+                    window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "1", "bdSize": "24" }, "share": {} };
+                    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                    </script>
+                </div>
+                <div class="visible-xs-block visible-sm-block b-hr"></div>
+                <%- include('./share/footer') %>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+    .container {
+        padding-top: 20px;
+    }
+
+    .nick {
+        font-size: 50px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <p class="nick">:)</p>
+            <h4><%=title %></h4>
+            <p><span class="time"><%= time/1000 %></span>秒之后跳转</p>
+        </div>
+    </div>
+    <script>
+    $(function() {
+        var time = <%= time/1000 %>;
+        var ds = setInterval(function() {
+            time = time - 1;
+            if (time <= 0) {
+                clearInterval(ds);
+                location.href = '<%= url %>'
+            }
+            $('.time').html(time);
+        }, 1000);
+    })
+    </script>
+</body>
+
+</html>

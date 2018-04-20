@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>网站后台管理登录</title>
+    <link href="/index/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- -->
+    <script>
+    var __links = document.querySelectorAll('a');
+
+    function __linkClick(e) { parent.window.postMessage(this.href, '*'); };
+    for (var i = 0, l = __links.length; i < l; i++) { if (__links[i].getAttribute('data-t') == '_blank') { __links[i].addEventListener('click', __linkClick, false); } }
+    </script>
+    <!-- jQuery -->
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(c) {
+        $('.alert-close').on('click', function(c) {
+            $('.message').fadeOut('slow', function(c) {
+                $('.message').remove();
+            });
+        });
+    });
+    </script>
+    <style>
+    @font-face {
+        font-family: 'Droid Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Droid Sans Regular'), local('DroidSans-Regular'), url(http://fonts.gstatic.com/s/droidsans/v8/SlGVmQWMvZQIdix7AFxXkHNSbQ.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    </style>
+</head>
+<style>
+.text-left {
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: red;
+}
+</style>
+
+<body>
+    <!-- contact-form -->
+    <div class="message warning">
+        <div class="inset">
+            <div class="login-head">
+                <h1>Login Form</h1>
+                <div class="alert-close"> </div>
+            </div>
+            <form action="/admin" method="post" enctype="multipart/form-data" class="form">
+                <li>
+                    <input type="email" class="text" name="email" placeholder="邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '邮箱';}"><a href="#" class=" icon user"></a>
+                </li>
+                <p class="text-msg text-left"></p>
+                <div class="clear"> </div>
+                <li>
+                    <input type="password" class="password" name="password" placeholder="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}"> <a href="#" class="icon lock"></a>
+                </li>
+                <p class="password-msg text-left"></p>
+                <div class="clear"> </div>
+                <div class="submit">
+                    <input type="submit" value="登录">
+                    <!-- <h4><a href="#">Lost your Password ?</a></h4> -->
+                    <div class="clear"> </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    <div class="clear"> </div>
+    <script>
+    $(function() {
+        $.ajaxSetup({
+            async: false
+        });
+        //用户失焦
+        $('.text').blur(function() {
+            var con = {};
+            if ($('.text').val() != '' && $('.password').val() != '') {
+                con.username = $('.text').val();
+                con.password = $('.password').val();
+            } else if ($('.text').val() != '' && $('.password').val() == '') {
+                con.username = $('.text').val();
+            }
+            $.get('/loginMsg', con, function(msg) {
+                if (msg != '') {
+                    if (msg == '用户名不存在') {
+                        $('.text-msg').html(msg);
+                    } else {
+                        $('.password-msg').html(msg);
+                    }
+                } else {
+                    $('.text-msg').html('');
+                    $('.password-msg').html('');
+                }
+            })
+        });
+        //密码失焦
+        $('.password').blur(function() {
+            var con = {};
+            if ($('.text').val() != '' && $('.password').val() != '') {
+                con.username = $('.text').val();
+                con.password = $('.password').val();
+            }
+            $.get('/loginMsg', con, function(msg) {
+                if (msg != '') {
+                    if (msg == '用户名不存在') {
+                        $('.text-msg').html(msg);
+                    } else {
+                        $('.password-msg').html(msg);
+                    }
+                } else {
+                    $('.text-msg').html('');
+                    $('.password-msg').html('');
+                }
+            })
+        })
+
+        $('.form').submit(function(event) {
+            if ($('.text').val() == '') {
+                $('.text-msg').html('用户名不能为空');
+                return false;
+            } else if ($('.password').val() == '') {
+                $('.password-msg').html('密码不能为空');
+                return false;
+            } else {
+                $.get('/loginMsg', { username: $('.text').val(), password: $('.password').val() }, function(msg) {
+                    if (msg == '') {
+                        // event.preventDefault()
+                    } else if (msg == '用户名不存在') {
+                        $('.text-msg').html(msg);
+                        event.preventDefault()
+                    } else {
+                        $('.password-msg').html(msg);
+                        event.preventDefault()
+                    }
+                })
+            }
+        })
+    })
+    </script>
+</body>
+
+</html>
