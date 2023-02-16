@@ -1,6 +1,5 @@
 # blog
 ### node
 ```
-做的一套node项目
-后台mongoose数据库
+早期 node + mongoose 练手项目
 ``
